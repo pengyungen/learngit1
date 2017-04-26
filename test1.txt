@@ -5,3 +5,4 @@ git tracks changes.
 stage is 暂存区
 只能commit 做了修改的
 learngit1为本地仓库，.git文件自动生成管理仓库
+git checkout -- file:让文件回到最近一次git commit或git add前的状态
