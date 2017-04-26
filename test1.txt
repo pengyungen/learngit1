@@ -3,3 +3,5 @@ it's fun!
 每天学习一点
 git tracks changes.
 stage is 暂存区
+只能commit 做了修改的
+learngit1为本地仓库，.git文件自动生成管理仓库
