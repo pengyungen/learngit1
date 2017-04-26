@@ -2,3 +2,4 @@
 it's fun!
 每天学习一点
 git tracks changes.
+stage is 暂存区
