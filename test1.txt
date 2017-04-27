@@ -10,3 +10,6 @@ git reset HEAD file可以把暂存区的修改撤销掉
 不但改错了东西，还从暂存区提交到了版本库：版本回退，可以回退到上一个版本。不过，这是有条件的，就是你还没有把自己的本地版本库推送到远程
 rm test.txt删除工作区（work directory）即learngit1里的东西,相当于直接手动删除文件
 git rm test.txt删除本地库里的，然后commit
+git diff readme.txt查看difference
+git reset --hard HEAD^版本回退
+git diff HEAD -- readme.txt命令可以查看工作区和版本库里面最新版本的区别
