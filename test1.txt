@@ -4,7 +4,7 @@ it's fun!
 git tracks changes.
 stage is 暂存区
 只能commit 做了修改的
-learngit1为本地仓库，.git文件自动生成管理仓库
+learngit1目录下为工作区，然后是暂存区（add），然后是本地库（git）。.git文件是自动生成，管理仓库
 git checkout -- file:让文件回到最近一次git commit或git add前的状态
 git reset HEAD file可以把暂存区的修改撤销掉
 不但改错了东西，还从暂存区提交到了版本库：版本回退，可以回退到上一个版本。不过，这是有条件的，就是你还没有把自己的本地版本库推送到远程
@@ -13,3 +13,4 @@ git rm test.txt删除本地库里的，然后commit
 git diff readme.txt查看difference
 git reset --hard HEAD^版本回退
 git diff HEAD -- readme.txt命令可以查看工作区和版本库里面最新版本的区别
+工作区文件删错了，若版本库里有（已提交或暂存），git checkout -- test.txt可以恢复
