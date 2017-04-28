@@ -15,3 +15,11 @@ git reset --hard HEAD^版本回退
 git diff HEAD -- readme.txt命令可以查看工作区和版本库里面最新版本的区别
 工作区文件删错了，若版本库里有（已提交或暂存），git checkout -- test.txt可以恢复
 从版本库中删除文件，git rm，并且git commit-m "remove test.txt"
+git config --list查看配置信息
+
+GitHub提供Git本地仓库托管服务
+
+本地Git仓库和GitHub仓库之间的传输是通过SSH加密
+为什么GitHub需要SSH Key呢？因为GitHub需要识别出你推送的提交确实是你推送的，而不是别人冒充的，GitHub只要知道了你的公钥，就可以确认只有你自己才能推送。
+GitHub允许你添加多个Key。假定你有若干电脑，只要把每台电脑的Key都添加到GitHub，就可以在每台电脑上往GitHub推送了。
+在GitHub上免费托管的Git仓库，任何人都可以看到喔（但只有你自己才能改）。所以，不要把敏感信息放进去。或者自己动手，搭一个Git服务器，因为是你自己的Git服务器，所以别人是看不见的。
