@@ -23,3 +23,6 @@ GitHub提供Git本地仓库托管服务
 为什么GitHub需要SSH Key呢？因为GitHub需要识别出你推送的提交确实是你推送的，而不是别人冒充的，GitHub只要知道了你的公钥，就可以确认只有你自己才能推送。
 GitHub允许你添加多个Key。假定你有若干电脑，只要把每台电脑的Key都添加到GitHub，就可以在每台电脑上往GitHub推送了。
 在GitHub上免费托管的Git仓库，任何人都可以看到喔（但只有你自己才能改）。所以，不要把敏感信息放进去。或者自己动手，搭一个Git服务器，因为是你自己的Git服务器，所以别人是看不见的。
+
+关联一个远程库git remote add origin git@github.com:pengyungen/learngit.git
+git push -u origin master第一次推送master分支的所有内容；git push origin master推送最新修改
