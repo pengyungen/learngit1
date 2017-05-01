@@ -31,4 +31,4 @@ GitHub给出的地址不止一个，还可以用git(https)://github.com/michaell
 
 创建一个属于自己的分支，别人看不到,想提交就提交，直到开发完毕后，再一次性合并到原来的分支上，不影响别人工作.
 master主分支，可创建其他分支如dev，若让HEAD指向dev，表示当前分支在dev上，此时对工作区的修改和提交就是针对dev分支了，比如新提交一次后，dev指针往前移动一步，而master指针不变：
-git checkout -b dev，git branch查看当前分支，git checkout master切换回master分支，git merge dev合并指定分支到当前分支（master），这种合并方式是直接让master指针指向dev的当前提交，git branch -d dev删除dev分支。
+git checkout -b dev创建并切换（git branch dev+git checkout dev），git branch查看当前分支，git checkout master切换回master分支，git merge dev合并指定分支到当前分支（master），这种合并方式是直接让master指针指向dev的当前提交，git branch -d dev删除dev分支。git branch命令会列出所有分支，当前分支前面会标一个*号
