@@ -34,3 +34,5 @@ master主分支，可创建其他分支如dev，若让HEAD指向dev，表示当�
 git checkout -b dev创建并切换（git branch dev+git checkout dev），git branch查看当前分支，git checkout master切换回master分支，git merge dev合并指定分支到当前分支（master），这种合并方式是直接让master指针指向dev的当前提交，git branch -d dev删除dev分支。git branch命令会列出所有分支，当前分支前面会标一个*号
 合并分支2：解决冲突：master分支和dev分支各自都分别有新的提交,此时执行合并，冲突，（git diff test1.txt查看两个分支内容不同之处）然后再把.txt文件修改，再提交即可合并。
 git log --graph --pretty=oneline --abbrev-commit可以看到分支合并图
+
+分支管理策略：
