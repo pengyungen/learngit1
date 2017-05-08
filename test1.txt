@@ -44,4 +44,9 @@ git log --graph --pretty=oneline --abbrev-commit可以看到分支合并图
 
 别的地方有bug需要解决，但当前工作只进行到一半，还不能提交，git stash可以把当前工作现场“储藏”起来，等以后恢复现场后继续工作，（创建别的分支来解决bug）git stash list命令查看stash内容，git stash apply恢复，但是恢复后，stash内容并不删除，你需要用git stash drop来删除；git stash pop，恢复的同时把stash内容也删了。
 
-git remote -v显示远程库信息，git push origin dev把本地的dev分支推送
+git remote -v显示远程库信息，git push origin dev把本地的dev分支推送。
+多人协作时，大家都会往master和dev分支上推送各自的修改，模拟一个你的小伙伴，可以在另一台电脑（注意要把SSH Key添加到GitHub）或者同一台电脑的另一个目录下克隆
+
+
+git remote -v显示远程库信息，git push origin dev把本地的dev分支推送。
+多人协作时，大家都会往master和dev分支上推送各自的修改，模拟一个你的小伙伴，可以在另一台电脑（注意要把SSH Key添加到GitHub）或者同一台电脑的另一个目录下克隆
