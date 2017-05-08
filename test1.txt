@@ -1,6 +1,8 @@
 ﻿很高兴我又开始学习git！哈哈哈
 it's fun!
 每天学习一点
+创建一个版本库非常简单，首先，选择一个合适的地方，创建一个空目录 mkdir learngit，然后cd learngit，pwd查看当前目录。git init命令把这个目录变成Git可以管理的仓库，git add readme.txt告诉Git，把文件添加到仓库，git commit -m "wrote a readme file"把文件提交到仓库
+
 git tracks changes.
 stage is 暂存区
 只能commit 做了修改的
@@ -26,7 +28,7 @@ GitHub允许你添加多个Key。假定你有若干电脑，只要把每台电�
 
 关联一个远程库git remote add origin git@github.com:pengyungen/learngit.git
 git push -u origin master第一次推送master分支的所有内容；git push origin master推送最新修改
-从远程库克隆git clone git@github.com:michaelliao/gitskills.git
+从远程库克隆git clone git@github.com:michaelliao/gitskills.git（若之前还没有创建本地库，可以先创建远程库，从远程库克隆，然后用cd gitskills来进入到此工作目录，ls查看目录下文件）
 GitHub给出的地址不止一个，还可以用git(https)://github.com/michaelliao/gitskills.git,Git支持多种协议，默认的git://使用ssh
 
 创建一个属于自己的分支，别人看不到,想提交就提交，直到开发完毕后，再一次性合并到原来的分支上，不影响别人工作.
@@ -41,3 +43,5 @@ git log --graph --pretty=oneline --abbrev-commit可以看到分支合并图
 合并分支时，加上--no-ff参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，而fast forward合并就看不出来曾经做过合并
 
 别的地方有bug需要解决，但当前工作只进行到一半，还不能提交，git stash可以把当前工作现场“储藏”起来，等以后恢复现场后继续工作，（创建别的分支来解决bug）git stash list命令查看stash内容，git stash apply恢复，但是恢复后，stash内容并不删除，你需要用git stash drop来删除；git stash pop，恢复的同时把stash内容也删了。
+
+git remote -v显示远程库信息，git push origin dev把本地的dev分支推送
