@@ -42,14 +42,7 @@ git log --graph --pretty=oneline --abbrev-commit可以看到分支合并图
 3.git merge --no-ff -m "merge with no-ff" dev表示禁用合并方式1，即不是直接让master指针指向dev的当前提交，这样可以保证master分支内容始终没问题（不会经常提交不完整内容），dev分支可以随时提交，即在dev上干活。
 合并分支时，加上--no-ff参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，而fast forward合并就看不出来曾经做过合并
 
-<<<<<<< HEAD
 别的地方有bug需要解决，但当前工作只进行到一半，还不能提交，git stash可以把当前工作现场“储藏”起来，等以后恢复现场后继续工作，（创建别的分支来解决bug）git stash list命令查看stash内容，git stash apply恢复，但是恢复后，stash内容并不删除，你需要用git stash drop来删除；git stash pop，恢复的同时把stash内容也删了。
-=======
-别的地方有bug需要解决，但当前工作只进行到一半，还不能提交，git stash可以把当前工作现场“储藏”起来，等以后恢复现场后继续工作，（创建别的分支来解决bug）git stash list命令查看stash内容，git stash apply恢复，但是恢复后，stash内容并不删除，你需要用git stash drop来删除；git stash pop，恢复的同时把stash内容也删了。
-
-git remote -v显示远程库信息，git push origin dev把本地的dev分支推送。
-多人协作时，大家都会往master和dev分支上推送各自的修改，模拟一个你的小伙伴，可以在另一台电脑（注意要把SSH Key添加到GitHub）或者同一台电脑的另一个目录下克隆
-
 
 git remote -v显示远程库信息，git push origin dev把本地的dev分支推送。
 多人协作时，大家都会往master和dev分支上推送各自的修改，模拟一个你的小伙伴，可以在另一台电脑（注意要把SSH Key添加到GitHub）或者同一台电脑的另一个目录下克隆。如果推送失败，先用git pull抓取远程的新提交（因为可能刚好在你提交前别人提交了一次，即对方已经更新了内容，需要你先pull下来，手动合并），若git pull提示“no tracking information，则说明本地分支和远程分支的链接关系没有创建，用git branch --set-upstream branch-name origin/branch-name建立本地分支和远程分支链接关系，然后手动修改合并之后再提交。
