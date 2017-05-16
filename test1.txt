@@ -45,7 +45,8 @@ git log --graph --pretty=oneline --abbrev-commit可以看到分支合并图
 别的地方有bug需要解决，但当前工作只进行到一半，还不能提交，git stash可以把当前工作现场“储藏”起来，等以后恢复现场后继续工作，（创建别的分支来解决bug）git stash list命令查看stash内容，git stash apply恢复，但是恢复后，stash内容并不删除，你需要用git stash drop来删除；git stash pop，恢复的同时把stash内容也删了。
 
 git remote -v显示远程库信息，git push origin dev把本地的dev分支推送。
-多人协作时，大家都会往master和dev分支上推送各自的修改，模拟一个你的小伙伴，可以在另一台电脑（注意要把SSH Key添加到GitHub）或者同一台电脑的另一个目录下克隆。如果推送失败，先用git pull抓取远程的新提交（因为可能刚好在你提交前别人提交了一次，即对方已经更新了内容，需要你先pull下来，手动合并），若git pull提示“no tracking information，则说明本地分支和远程分支的链接关系没有创建，用git branch --set-upstream branch-name origin/branch-name建立本地分支和远程分支链接关系，然后手动修改合并之后再提交。
+
+多人协作时，大家都会往master和dev分支上推送各自的修改，模拟一个你的小伙伴，可以在另一台电脑（注意要把SSH Key添加到GitHub）或者同一台电脑的另一个目录下克隆。如果推送失败，先用git pull抓取远程的新提交（因为可能刚好在你提交前别人提交了一次，即对方已经更新了内容，需要你先pull下来，pull后如果能自动合并，就直接推送，如不能自动合并则手动合并并在本地提交，再用git push origin branch-name推送就能成功），若git pull提示“no tracking information，则说明本地分支和远程分支的链接关系没有创建，用git branch --set-upstream branch-name origin/branch-name建立本地分支和远程分支链接关系，然后手动修改合并之后再提交。
 
 在Git中打标签，先切换到需要打标签的分支上，git tag v1.0，git tag查看所有标签，默认标签是打在最新提交的commit上的，git log --pretty=oneline --abbrev-commit找到历史提交的commit id。如：git tag v0.9 6224937（历史 id），git show v0.9查看标签信息。git tag -a v0.1 -m "version 0.1 released" 3628164，-a指定标签名，-m指定说明文字。
 
