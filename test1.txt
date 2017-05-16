@@ -29,7 +29,7 @@ GitHub允许你添加多个Key。假定你有若干电脑，只要把每台电�
 关联一个远程库git remote add origin git@github.com:pengyungen/learngit.git
 git push -u origin master第一次推送master分支的所有内容；git push origin master推送最新修改
 从远程库克隆git clone git@github.com:michaelliao/gitskills.git（若之前还没有创建本地库，可以先创建远程库，从远程库克隆，然后用cd gitskills来进入到此工作目录，ls查看目录下文件）
-GitHub给出的地址不止一个，还可以用git(https)://github.com/michaelliao/gitskills.git,Git支持多种协议，默认的git://使用ssh
+GitHub给出的地址不止一个，还可以用git(https)://github.com/michaelliao/gitskills.git,Git支持多种协议，默认的git://使用ssh（若用https方式克隆时，提交更新时可能要输入用户名和密码）
 
 创建一个属于自己的分支，别人看不到,想提交就提交，直到开发完毕后，再一次性合并到原来的分支上，不影响别人工作.
 master主分支，可创建其他分支如dev，若让HEAD指向dev，表示当前分支在dev上，此时对工作区的修改和提交就是针对dev分支了，比如新提交一次后，dev指针往前移动一步，而master指针不变：
@@ -73,3 +73,5 @@ git commit加上 -a 选项，Git会自动把所有已经跟踪过的文件暂存
 git rm --cached readme.txt把文件从Git仓库中删除（亦即从暂存区域移除），但仍然保留在当前工作目录中。
 git mv README.txt README文件重命名；git log常用-p选项展开显示每次提交的内容差异，用-n则仅显示最近的n次更新，
 git log --pretty=oneline 将每个提交放在一行显示；gitk 命令:图形化工具查阅提交历史。
+
+push的时候，要输入用户名和密码，麻烦：原因是使用了https方式 push，git remote -v可以查看，把它换成ssh方式的：git remote rm origin，git remote add origin git@github.com:yuquan0821/demo.git，git push origin 。
