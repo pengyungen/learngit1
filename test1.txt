@@ -76,3 +76,5 @@ git mv README.txt README文件重命名；git log常用-p选项展开显示每�
 git log --pretty=oneline 将每个提交放在一行显示；gitk 命令:图形化工具查阅提交历史。
 
 push的时候，要输入用户名和密码，麻烦：原因是使用了https方式 push，git remote -v可以查看，把它换成ssh方式的：git remote rm origin，git remote add origin git@github.com:yuquan0821/demo.git，git push origin 好像没用 。
+
+有时候我们提交完了才发现漏掉了几个文件没有加，或者提交信息写错了。想要撤消刚才的提交操作，可以使用 git commit --amend 重新提交。
