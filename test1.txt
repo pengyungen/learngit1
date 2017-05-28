@@ -26,10 +26,9 @@ GitHub提供Git本地仓库托管服务
 GitHub允许你添加多个Key。假定你有若干电脑，只要把每台电脑的Key都添加到GitHub，就可以在每台电脑上往GitHub推送了。
 在GitHub上免费托管的Git仓库，任何人都可以看到喔（但只有你自己才能改）。所以，不要把敏感信息放进去。或者自己动手，搭一个Git服务器，因为是你自己的Git服务器，所以别人是看不见的。
 
-关联一个远程库git remote add origin git@github.com:pengyungen/learngit.git
+关联一个远程库git remote add origin git@github.com:pengyungen/learngit.git（为某项目创建远程仓库）
 git push -u origin master第一次推送master分支的所有内容；git push origin master推送最新修改
-从远程库克隆git clone git@github.com:michaelliao/gitskills.git（若之前还没有创建本地库，可以先创建远程库，从远程库克隆，然后用cd gitskills来进入到此工作目录，ls查看目录下文件）
-GitHub给出的地址不止一个，还可以用git(https)://github.com/michaelliao/gitskills.git,Git支持多种协议，默认的git://使用ssh（若用https方式克隆时，提交更新时可能要输入用户名和密码）
+从远程库克隆git clone git@github.com:michaelliao/gitskills.git（若之前还没有创建本地库，可以先创建远程库（可在github上直接创建），从远程库克隆，然后用cd gitskills来进入到此工作目录，ls查看目录下文件）GitHub给出的地址不止一个，还可以用git(https)://github.com/michaelliao/gitskills.git,Git支持多种协议，默认的git://使用ssh（若用https方式克隆时，提交更新时可能要输入用户名和密码）
 
 创建一个属于自己的分支，别人看不到,想提交就提交，直到开发完毕后，再一次性合并到原来的分支上，不影响别人工作.
 master主分支，可创建其他分支如dev，若让HEAD指向dev，表示当前分支在dev上，此时对工作区的修改和提交就是针对dev分支了，比如新提交一次后，dev指针往前移动一步，而master指针不变：
@@ -77,7 +76,7 @@ git log --pretty=oneline 将每个提交放在一行显示；gitk 命令:图形�
 
 push的时候，要输入用户名和密码，麻烦：原因是使用了https方式 push，git remote -v可以查看，把它换成ssh方式的：git remote rm origin，git remote add origin git@github.com:yuquan0821/demo.git，git push origin 好像没用 。
 
-有时候我们提交完了才发现漏掉了几个文件没有加，或者提交信息写错了，想要撤消刚才的提交操作，可以使用 git commit --amend 重新提交。
+有时候我们提交完了才发现漏掉了几个文件没有加，或者提交信息写错了，想要撤消刚才的提交操作，可以使用 git commit --amend 重新提交，若直接修改提交（不用amend），会有多个commits(git status可以看到),最后push时会一次性push多个之前commit的东西（远程库里会一下子多出很多commit，注意避免不停的add和commit,考虑撤销操作）。
 
 取消已经暂存的文件：有两个修改过的文件，想要分开提交，但不小心用 git add . 全加到了暂存区域，git status 的命令输出有提示信息，使用 git reset HEAD file的方式取消暂存。
 
@@ -87,3 +86,22 @@ push的时候，要输入用户名和密码，麻烦：原因是使用了https�
 2.origin git@github.com:mojombo/grit.git,两个地址只有origin用的是SSH URL链接，所以只有这个仓库我能推送数据上去。
 
 添加远程仓库：git remote add pb git@github.com:pengyungen/learngit.git，git fetch pb从远程库抓取本地库没有的信息，fetch 命令只是将远端的新数据拉到本地仓库，并不自动合并到当前工作分支。如果设置了某个分支跟踪某个远端仓库的分支，使用git pull自动抓取数据下来，然后将远端分支自动合并到本地仓库中当前分支。默认情况下git clone 命令自动创建了本地的master分支跟踪远程仓库中的 master 分支（假设远程仓库确实有 master 分支）。所以一般我们运行 git pull，从克隆的远端仓库中抓取数据后，会自动合并到工作目录中的当前分支。git remote show [remote-name] 查看某个远程仓库的详细信息。git remote rename pb paul对远程仓库的重命名，git remote rm paul移除对应的远端仓库。
+
+标签：只对1.4.2系列的版本感兴趣，运行git tag -l "v1.4.2.*"
+自动补全:git co<tab><tab>会自动补全含字母co的命令。
+
+分支：HEAD指针指向你正在工作中的本地分支。合并时出现“Fast forward”提示：如果顺着一个分支走下去可以到达另一个分支的话，那么Git在合并两者时，只会简单地把指针右移，因为这种单线的历史分支不存在任何需要解决的分歧，所以这种合并过程称为快进（Fast forward）。 git branch -v查看各个分支最后一个提交对象的信息；用git branch --merge查看哪些分支已被并入当前分支（也就是说哪些分支是当前分支的直接上游。），--no-merged表未并入。
+
+远程分支：远程分支是对远程仓库中的分支的索引，用 (远程仓库名)/(分支名) 这样的形式表示远程分支：pyg/issue53分支。一次Git克隆会建立你自己的本地分支 master 和远程分支 origin/master，并且将它们都指向 origin 上的master分支。如果你在本地 master分支做了些改动，与此同时，其他人向远程库推送了他们的更新，那么服务器上的 origin/master分支就会向前推进，而与此同时，你在本地的提交历史正朝向不同方向发展，不过只要你不和服务器通讯，你自己的 origin/master 指针仍然保持原位不会移动。可以运行 git fetch origin 来同步远程服务器上的数据到本地。
+
+推送本地分支：把本地分支1推送到某个命名不同的远程分支2：git push origin name1:name2；
+跟踪远程分支：从远程分支checkout出来的本地分支，称为跟踪分支，在跟踪分支里输入git push，Git会自行推断应该向哪个服务器的哪个分支推送数据。例git checkout -b sf origin/serverfix，本地分支sf会自动将推送和抓取数据的位置定位到 origin/serverfix了。
+删除远程分支：git push [远程名]:[分支名]例git push origin:serverfix。
+
+分支衍合：把一个分支中的修改整合到另一个分支的办法有两种：merge 和 rebase；
+          最容易的整合分支的方法是 merge 命令，它会把两个分支最新的快照（C3 和 C4）以及二者最新的共同祖先（C2）进行三方合并，合并的结果是产生一个新的提交对象（C5）；
+          另外一个选择：把在 C3 里产生的变化补丁在C4的基础上重新打一遍。在Git里，这种操作叫做衍合（rebase）。有了 rebase 命令，就可以把在一个分支里提交的改变移到另一个分支里重放一遍。
+
+
+协议：
+     Git 使用的传输协议中最常见的可能就是 SSH 了。这是因为大多数环境已经支持通过 SSH 对服务器的访问 — 即便还没有，架设起来也很容易。SSH 也是唯一一个同时支持读写操作的网络协议。另外两个网络协议（HTTP 和 Git）通常都是只读的，所以虽然二者对大多数人都可用，但执行写操作时还是需要 SSH。SSH 同时也是一个验证授权的网络协议；而因为其普遍性，一般架设和使用都很容易。
