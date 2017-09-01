@@ -6,3 +6,66 @@ vi hello.c  新建一个文件；进入vi的一般模式：可删除复制粘贴，但不能编辑；  在一般
 启动gcc对代码进行编译：gcc helloworld.c -o execFile；./execFlie则会开始运行；objdump -d exefile输出目标代码汇编内容。(或者用gcc -O2 -c hello.c,生成hello.o的二进制格式目标代码，然后再objdump -d hello.o)
 
 
+# uname -a  查看内核/操作系统/CPU信息  # hostname查看计算机名  # free -m 查看内存使用量和交换区使用量
+# df -h查看各分区使用情况 # fdisk -l查看所 有分区  # ifconfig查看所有网络接口的属性
+# ps -ef查看所有进程(进程号)，(grep 是搜索)ps -ef | grep java查看所有进程里CMD是java的进程信息
+kill 命令用于终止进程kill -9 [PID],-9表示强迫进程立即停止,PID表进程编号
+# top实时显示进程状态，退出 top，按 [q] 键    # last查看用户登录日志
+
+
+5个基于Linux命令行的文件下载和网站浏览工具：
+
+rTorrent； Wget：能通过HTTP，HTTPS和FTP下载文件,# wget http://www.linuxsense.org/xxxx/xxx.tar.gz
+
+cURL：在多种协议上传输数据的命令行工具，支持FTP, HTTP, FTPS等协议的客户端应用，支持代理下载，暂停下载、恢复下载
+
+W3m：基于文本的web浏览器，W3m支持表格，帧，颜色，SSL连接以及内联图像，W3m以快速浏览而出名。
+
+Elinks：是基于文本的免费浏览器，用于Unix及基于Unix的系统。Elinks支持 HTTP，HTTP Cookies以及支持浏览Perl和Ruby脚本。也很好的支持选项卡浏览。最棒的是它支持鼠标、彩色以及支持一系列的协议。
+安装Elinks:# yum install elinks (基于YUM的系统)，然后# elinks www.baidu.com  
+
+
+安装和卸载软件：
+
+一、通常Linux应用软件的安装包有三种：
+    1） tar包，如software-1.2.3-1.tar.gz。它是使用UNIX系统的打包工具tar打包的。
+　  2） rpm包，如software-1.2.3-1.i386.rpm。它是Redhat Linux提供的一种包封装格式。
+　　3） dpkg包，如software-1.2.3-1.deb。它是Debain Linux提供的一种包封装格式。
+
+安装包命名一般遵循：名称-版本-修正版-类型
+如：software-1.2.3-1.tar.gz 
+软件名：software；版本号：1.2.3；修正版本：1；类型：tar.gz，说明是一个tar包。
+sfotware-1.2.3-1.i386.rpm：i386，适用于Intel 80x86平台。
+
+二、 了解包里的内容：
+　　　　一个Linux应用程序的软件包中可以包含两种不同的内容：
+　　　　1） 一种就是可执行文件，也就是解开包后就可以直接运行的。在Windows中所 有的软件包都是这种类型。安装完这个程序后，你就可以使用，但你看不到源程序。而且下载时要注意这个软件是否是你所使用的平台，否则将无法正常安装。
+　　　　2） 另一种则是源程序，也就解开包后，你还需要使用编译器将其编译成为可执行文件。这在Windows系统中是几乎没有的，因为Windows的思想是不开放源程序的。
+通常，用tar打包的，都是源程序；而用rpm、dpkg打包的则是可执行程序。自己编译源程序更具灵活性，但容易遇到各种问题。
+
+1、安装使用tar打包的应用软件：
+    若是gz格式的压缩，则执行：tar –xvzf 软件包名，一步完成解压与解包工作。 执行“./configure”命令为编译做好准备； 执行“make”命令进行软件编译； 执行“make install”完成安装； 执行“make clean”删除安装时产生的临时文件。
+
+2、rpm打包的应用软件：rpm –ivh 软件包名。卸载：rpm –e 软件名(是软件名，而不是软件包名)
+3、使用deb打包的应用程序：安装dpkg –i deb软件包名；卸载dpkg –e 软件名。
+
+4、yum方式安装：(安装rpm包)      rpm只能安装已经下载到本地机器上的rpm包， yum能在线下载并安装rpm包
+      yum install/update/remove  package1: 安装/更新/删除指定的安装包package1。
+
+
+linux系统下tar打包压缩命令：
+
+     tar只是一个打包工具，并不负责压缩，
+范例一：将整个 /etc 目录下的文件全部打包成为/tmp/etc.tar：    tar -cvf /tmp/etc.tar /etc
+        解包：tar -xvf /tmp/etc.tar.gz
+
+      tar -zcvf /tmp/etc.tar.gz /etc ，打包后，以 gzip 压缩
+      解压缩：tar -zxvf /tmp/etc.tar.gz
+
+gz命令：压缩：gzip FileName；解压：gzip -d FileName.gz或gunzip FileName.gz
+
+zip命令：压缩：zip FileName.zip DirName；解压：unzip FileName.zip
+
+删除文件夹/目录rm -rf 目录名字、 rm(remove)文件、  创建目录：mkdir、  创建文件 touch  
+
+运行可执行文件(软件)：cd 目录(进入程序目录)，然后 ./程序名称(文件名)。
