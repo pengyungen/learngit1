@@ -108,3 +108,6 @@ push的时候，要输入用户名和密码，麻烦：原因是使用了https�
 
 git clone git://git.kernel.org/pub/scm/git/git.git克隆git源码。
 git add . 跟踪项目文件夹中的所有文件和文件夹；git add 文件夹名（不需后缀）跟踪单个文件夹（如git add git截图）。
+
+
+使用 git reflog 来查看引用日志：一份记录最近几个月你的 HEAD 和分支引用的日志。
