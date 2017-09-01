@@ -1,0 +1,61 @@
+(mysql服务的启动和停止：net stop mysql，net start mysql)
+
+一、linux启动方式
+
+使用 service 启动：service mysqld start；    service mysqld stop
+使用 mysqld 脚本启动：/etc/inint.d/mysqld start ；   /etc/inint.d/mysqld stop
+使用 safe_mysqld 启动：safe_mysqld& ；         mysqladmin shutdown 
+
+重启
+ 
+使用 service 启动：service mysqld restart
+使用 mysqld 脚本启动：/etc/inint.d/mysqld restart
+
+连接Mysql：格式： mysql -h主机地址 -u用户名 －p用户密码
+
+1.连接到本机上的MYSQL，进入目录mysql\bin，再键入命令mysql -u root -p（会提示输入密码）
+MYSQL的提示符是： mysql>（需要分号结束）
+
+2、连接到远程主机上的MYSQL：假设远程主机的IP为：110.110.110.110，用户名为root,密码为abcd123。则键入以下命令：
+    mysql -h110.110.110.110 -u root -p abcd123;
+
+3、退出MYSQL命令： exit; （回车）
+
+
+创建数据库test1：create database test1;
+系统中都存在哪些数据库：show databases;
+选择要操作的数据库：use test1；
+查看test1 数据库中创建的所有数据表：show tables;
+删除数据库：drop database test1;
+在数据库中创建一张表：create table emp(ename varchar(10),hiredate date,sal decimal(10,2),deptno int(2));
+查看emp 表:desc emp;(show create table emp \G;)
+删除表：drop table emp;
+
+DML 操作是指对数据库中表记录的操作，主要包括表记录的插入（insert）、更新（update）删除（delete）和查询（select）
+插入记录的基本语法：insert into emp (ename,hiredate,sal,deptno) values('zzx1','2000-01-01','2000',1);
+将表emp中的记录全部查询出来：select * from emp;（表）*表示所有记录；
+条件查询：查询所有deptno 为1 的记录：select * from emp where deptno=1;
+删除(表)记录：DELETE FROM tablename [WHERE CONDITION]；  delete from emp where ename='dony';
+
+排序和限制
+
+desc 和asc 是排序顺序关键字，desc 表示按照字段进行降序排列，asc则表示升序排列，如果不写此关键字默认是升序排列
+把emp表中的记录按照工资高低进行显示：select * from emp order by sal;
+select * from emp order by deptno,sal desc;对于deptno 相同的前两条记录，再按照工资由高到低排序。
+
+
+DCL 语句主要是DBA 用来管理系统中的对象权限时所使用
+创建一个数据库用户z1，具有对sakila 数据库中所有表的SELECT/INSERT 权限：
+grant select,insert on sakila.* to 'z1'@'localhost' identified by '123'(123为密码);则执行mysql -uz1 -p123
+
+按照层次看帮助：用“？contents”命令来显示所有可供查询的的分类，对于列出的分类，使用“? 类别名称”进一步查看。
+快速查阅？ 关键字：? show；? create table；
+
+DATABASE()函数：返回当前数据库名,select DATABASE();查询函数返回值。MD5(str)函数：返回str 的MD5值，对数据加密。
+
+MySQL 存储引擎
+ 查询当前数据库支持的存储引擎：SHOW ENGINES \G(SHOW VARIABLES LIKE 'have%';)
+查看当前的默认存储引擎:show variables like 'table_type';
+
+退出到操作系统下，查看表t 的物理文件大小：mysql> exit；[bjguan@zzx test]$ du -sh t.*
+OPTIMIZE TABLE t;对表优化，删除碎片。

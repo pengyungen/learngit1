@@ -1,0 +1,8 @@
+Linux： 查看软件安装路径  whereis mysql ；which mysql 查询文件的运行文件所在地址
+
+编写hello word程序：
+vi hello.c  新建一个文件；进入vi的一般模式：可删除复制粘贴，但不能编辑；  在一般模式中输入：或/或？可以将光标移到最下面(这是命令行模式)；    在一般模式中按下i进入编辑模式；按esc退出编辑模式回到一般模式；
+在一般模式中输入：wq保存后离开；  ：q!强制离开不保存； ：q离开vi;   ：wq!强制保存后离开； ：w保存不离开vi；
+启动gcc对代码进行编译：gcc helloworld.c -o execFile；./execFlie则会开始运行；objdump -d exefile输出目标代码汇编内容。(或者用gcc -O2 -c hello.c,生成hello.o的二进制格式目标代码，然后再objdump -d hello.o)
+
+

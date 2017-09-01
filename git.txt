@@ -1,0 +1,115 @@
+﻿很高兴我又开始学习git！哈哈哈
+it's fun!
+每天学习一点
+创建一个版本库非常简单，首先，选择一个合适的地方，创建一个空目录 mkdir learngit，然后cd learngit，pwd查看当前目录。git init命令把这个目录变成Git可以管理的仓库，git add readme.txt告诉Git，把文件添加到仓库，git commit -m "wrote a readme file"把文件提交到仓库
+
+git tracks changes.
+stage is 暂存区
+只能commit 做了修改的
+learngit1目录下为工作区，然后是暂存区（add），然后是本地库（git）。.git文件是自动生成，管理仓库
+git checkout -- file:让文件回到最近一次git commit或git add前的状态
+git reset HEAD file可以把暂存区的修改撤销掉
+不但改错了东西，还从暂存区提交到了版本库：版本回退，可以回退到上一个版本。不过，这是有条件的，就是你还没有把自己的本地版本库推送到远程
+rm test.txt删除工作区（work directory）即learngit1里的东西,相当于直接手动删除文件
+git rm test.txt删除本地库里的，然后commit
+git diff readme.txt查看difference
+git reset --hard HEAD^版本回退
+git diff HEAD -- readme.txt命令可以查看工作区和版本库里面最新版本的区别
+工作区文件删错了，若版本库里有（已提交或暂存），git checkout -- test.txt可以恢复
+从版本库中删除文件，git rm，并且git commit-m "remove test.txt"
+git config --list查看配置信息
+
+GitHub提供Git本地仓库托管服务
+
+本地Git仓库和GitHub仓库之间的传输是通过SSH加密
+为什么GitHub需要SSH Key呢？因为GitHub需要识别出你推送的提交确实是你推送的，而不是别人冒充的，GitHub只要知道了你的公钥，就可以确认只有你自己才能推送。
+GitHub允许你添加多个Key。假定你有若干电脑，只要把每台电脑的Key都添加到GitHub，就可以在每台电脑上往GitHub推送了。
+在GitHub上免费托管的Git仓库，任何人都可以看到喔（但只有你自己才能改）。所以，不要把敏感信息放进去。或者自己动手，搭一个Git服务器，因为是你自己的Git服务器，所以别人是看不见的。
+
+关联一个远程库git remote add origin git@github.com:pengyungen/learngit.git（为某项目创建远程仓库）
+git push -u origin master第一次推送master分支的所有内容；git push origin master推送最新修改
+从远程库克隆git clone git@github.com:michaelliao/gitskills.git（若之前还没有创建本地库，可以先创建远程库（可在github上直接创建），从远程库克隆，然后用cd gitskills来进入到此工作目录，ls查看目录下文件）GitHub给出的地址不止一个，还可以用git(https)://github.com/michaelliao/gitskills.git,Git支持多种协议，默认的git://使用ssh（若用https方式克隆时，提交更新时可能要输入用户名和密码）
+
+创建一个属于自己的分支，别人看不到,想提交就提交，直到开发完毕后，再一次性合并到原来的分支上，不影响别人工作.
+master主分支，可创建其他分支如dev，若让HEAD指向dev，表示当前分支在dev上，此时对工作区的修改和提交就是针对dev分支了，比如新提交一次后，dev指针往前移动一步，而master指针不变：
+git checkout -b dev创建并切换（git branch dev+git checkout dev），git branch查看当前分支，git checkout master切换回master分支，git merge dev合并指定分支到当前分支（master），
+1.这种合并方式是直接让master指针指向dev的当前提交（缺点：丢失分支信息），git branch -d dev删除dev分支。git branch命令会列出所有分支，当前分支前面会标一个*号
+合并分支2：解决冲突：master分支和dev分支各自都分别有新的提交,此时执行合并，冲突，（git diff test1.txt查看两个分支内容不同之处）然后再把.txt文件修改，再提交即可合并。
+git log --graph --pretty=oneline --abbrev-commit可以看到分支合并图
+
+分支管理策略：master分支是稳定的，也就是仅用来发布新版本，平时不能在上面干活；干活都在dev分支上，也就是说，dev分支是不稳定的，到某个时候，比如1.0版本发布时，再把dev分支合并到master上，在master分支发布1.0版本，你和你的小伙伴们每个人都有自己的分支，时不时地往dev分支上合并就可以了。
+3.git merge --no-ff -m "merge with no-ff" dev表示禁用合并方式1，即不是直接让master指针指向dev的当前提交，这样可以保证master分支内容始终没问题（不会经常提交不完整内容），dev分支可以随时提交，即在dev上干活。
+合并分支时，加上--no-ff参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，而fast forward合并就看不出来曾经做过合并
+
+别的地方有bug需要解决，但当前工作只进行到一半，还不能提交，git stash可以把当前工作现场“储藏”起来，等以后恢复现场后继续工作，（创建别的分支来解决bug）git stash list命令查看stash内容，git stash apply恢复，但是恢复后，stash内容并不删除，你需要用git stash drop来删除；git stash pop，恢复的同时把stash内容也删了。
+
+git remote -v显示远程库信息，git push origin dev把本地的dev分支推送。
+
+多人协作时，大家都会往master和dev分支上推送各自的修改，模拟一个你的小伙伴，可以在另一台电脑（注意要把SSH Key添加到GitHub）或者同一台电脑的另一个目录下克隆。如果推送失败，先用git pull抓取远程的新提交（因为可能刚好在你提交前别人提交了一次，即对方已经更新了内容，需要你先pull下来，pull后如果能自动合并（fast-fowrd表快速自动合并），就直接推送，如不能自动合并则手动合并并在本地提交，再用git push origin branch-name推送就能成功），若git pull提示“no tracking information，则说明本地分支和远程分支的链接关系没有创建，用git branch --set-upstream branch-name origin/branch-name建立本地分支和远程分支链接关系，然后手动修改合并之后再提交。
+
+在Git中打标签，先切换到需要打标签的分支上，git tag v1.0，git tag查看所有标签，默认标签是打在最新提交的commit上的，git log --pretty=oneline --abbrev-commit找到历史提交的commit id。如：git tag v0.9 6224937（历史 id），git show v0.9查看标签信息。git tag -a v0.1 -m "version 0.1 released" 3628164，-a指定标签名，-m指定说明文字。
+
+操作标签：git tag -d v0.1删除；git push origin v1.0推送远程库；git push origin --tags一次性推送全部尚未推送到远程的本地标签；删除远程标签先从本地删除，然后git push origin :refs/tags/v0.1；
+
+
+使用GitHub：如何参与一个开源项目呢？比如人气极高的bootstrap项目，这是一个非常强大的CSS框架，你可以访问它的项目主页https://github.com/twbs/bootstrap，点“Fork”就在自己的账号下克隆了一个bootstrap仓库，然后，从自己的账号下clone：git clone git@github.com:pengyungen/bootstrap.git;一定要从自己的账号下clone仓库，这样你才能推送修改。如果从bootstrap的作者的仓库地址git@github.com:twbs/bootstrap.git克隆，因为没有权限，你将不能推送修改。
+如果你想修复bootstrap的一个bug，或者新增一个功能，立刻就可以开始干活，干完后，往自己的仓库推送;如果你希望bootstrap的官方库能接受你的修改，你就可以在GitHub上发起一个pull request。当然，对方是否接受你的pull request就不一定了。(在GitHub上，可以任意Fork开源仓库；自己拥有Fork后的仓库的读写权限；可以推送pull request给官方仓库来贡献代码。)
+
+配置用户名：git config --global user.name "John Doe"；git config --global user.email johndoe@example.com；
+配置别名：git config --global alias.st status，st就表示status；--global参数是全局参数，也就是这些命令在这台电脑的所有Git仓库下都有用，如果不加，那只针对当前的仓库起作用。每个仓库的Git配置文件都放在.git/config文件中，cat .git/config ，要删除别名，直接把.git/config对应的行删掉即可。当前用户的Git配置文件放在用户主目录下的一个隐藏文件.gitconfig中。
+
+搭建Git服务器：GitHub就是一个免费托管开源代码的远程仓库，但是对于某些视源代码如生命的公司来说，既不想公开源代码，又舍不得给GitHub交保护费（不公开），那就只能自己搭建一台Git服务器作为私有仓库使用（远程仓库实际上和本地仓库没啥不同，远程仓库7x24小时开机并交换大家的修改）：自己找个主机就可以，24小时不关机就是服务器了，然后安装git,创建git用户，收集所有需要登录的用户的公钥，用户就可以克隆这个主机仓库，在各自电脑弄并推送了。
+
+
+git 官方教程
+
+有两种取得 Git 项目仓库的方法：1.对现有的某个项目开始用 Git 管理，只需到此项目所在的目录，执行git init,在当前目录下会出现一个名为 .git 的目录，所有 Git 需要的数据和资源都存放在这个目录中,但我们还没有开始跟踪管理项目中的任何一个文件,用 git add 命令告诉 Git 开始对这些文件进行跟踪;2.从现有仓库克隆。
+
+git clone 命令，git clone git://github.com/schacon/grit.git，会在当前目录下创建一个名为grit的目录，其中包含一个 .git 的目录，用于保存下载下来的所有版本记录，然后从中取出最新版本的文件拷贝。如果进入这个新建的 grit 目录，你会看到项目中的所有文件已经在里边了，准备好后续的开发和使用。克隆的时候，自己可以在上面的命令末尾指定新的名字：git clone git://github.com/schacon/grit.git mygrit。
+Git 收取的是项目历史的所有数据（每一个文件的每一个版本），服务器上有的数据克隆之后本地也都有了。实际上，即便服务器的磁盘发生故障，用任何一个克隆出来的客户端都可以重建服务器上的仓库，回到当初克隆时的状态。
+
+git diff比较的是工作目录中当前文件和暂存区域快照之间的差异，即修改之后还没有暂存起来的变化内容；git diff --cached（git diff --staged）比较已经暂存起来的文件和上次提交时的快照之间的差异。
+git commit加上 -a 选项，Git会自动把所有已经跟踪过的文件暂存起来一并提交，从而跳过git add步骤。
+git rm --cached readme.txt把文件从Git仓库中删除（亦即从暂存区域移除），但仍然保留在当前工作目录中。
+git mv README.txt README文件重命名；git log常用-p选项展开显示每次提交的内容差异，用-n则仅显示最近的n次更新，
+git log --pretty=oneline 将每个提交放在一行显示；gitk 命令:图形化工具查阅提交历史。
+
+push的时候，要输入用户名和密码，麻烦：原因是使用了https方式 push，git remote -v可以查看，把它换成ssh方式的：git remote rm origin，git remote add origin git@github.com:yuquan0821/demo.git，git push origin 好像没用 。
+
+有时候我们提交完了才发现漏掉了几个文件没有加，或者提交信息写错了，想要撤消刚才的提交操作，可以使用 git commit --amend 重新提交，若直接修改提交（不用amend），会有多个commits(git status可以看到),最后push时会一次性push多个之前commit的东西（远程库里会一下子多出很多commit，注意避免不停的add和commit,考虑撤销操作）。
+
+取消已经暂存的文件：有两个修改过的文件，想要分开提交，但不小心用 git add . 全加到了暂存区域，git status 的命令输出有提示信息，使用 git reset HEAD file的方式取消暂存。
+
+取消对文件的修改：修改后还没有暂存，想取消修改，git status 同样提示了具体的撤消方法。任何已经提交到 Git的都可以被恢复，即便在已经删除的分支中的提交，你可能失去的数据，仅限于没有提交过的，对 Git 来说它们就像从未存在过一样。
+
+如果有多个远程仓库git remote -v将全部列出：1. koke git://github.com/koke/grit.git（克隆地址）远程库名字为koke;
+2.origin git@github.com:mojombo/grit.git,两个地址只有origin用的是SSH URL链接，所以只有这个仓库我能推送数据上去。
+
+添加远程仓库（需要先在github上手动创建）：然后关联git remote add pb git@github.com:pengyungen/learngit.git，git fetch pb从远程库抓取本地库没有的信息，fetch 命令只是将远端的新数据拉到本地仓库，并不自动合并到当前工作分支。如果设置了某个分支跟踪某个远端仓库的分支，使用git pull自动抓取数据下来，然后将远端分支自动合并到本地仓库中当前分支。默认情况下git clone 命令自动创建了本地的master分支跟踪远程仓库中的 master 分支（假设远程仓库确实有 master 分支）。所以一般我们运行 git pull，从克隆的远端仓库中抓取数据后，会自动合并到工作目录中的当前分支。git remote show [remote-name] 查看某个远程仓库的详细信息。git remote rename pb paul对远程仓库的重命名，git remote rm paul移除对应的远端仓库。
+
+标签：只对1.4.2系列的版本感兴趣，运行git tag -l "v1.4.2.*"
+自动补全:git co<tab><tab>会自动补全含字母co的命令。
+
+分支：HEAD指针指向你正在工作中的本地分支。合并时出现“Fast forward”提示：如果顺着一个分支走下去可以到达另一个分支的话，那么Git在合并两者时，只会简单地把指针右移，因为这种单线的历史分支不存在任何需要解决的分歧，所以这种合并过程称为快进（Fast forward）。 git branch -v查看各个分支最后一个提交对象的信息；用git branch --merge查看哪些分支已被并入当前分支（也就是说哪些分支是当前分支的直接上游。），--no-merged表未并入。
+
+远程分支：远程分支是对远程仓库中的分支的索引，用 (远程仓库名)/(分支名) 这样的形式表示远程分支：pyg/issue53分支。一次Git克隆会建立你自己的本地分支 master 和远程分支 origin/master，并且将它们都指向 origin 上的master分支。如果你在本地 master分支做了些改动，与此同时，其他人向远程库推送了他们的更新，那么服务器上的 origin/master分支就会向前推进，而与此同时，你在本地的提交历史正朝向不同方向发展，不过只要你不和服务器通讯，你自己的 origin/master 指针仍然保持原位不会移动。可以运行 git fetch origin 来同步远程服务器上的数据到本地。
+
+推送本地分支：把本地分支1推送到某个命名不同的远程分支2：git push origin name1:name2；
+跟踪远程分支：从远程分支checkout出来的本地分支，称为跟踪分支，在跟踪分支里输入git push，Git会自行推断应该向哪个服务器的哪个分支推送数据。例git checkout -b sf origin/serverfix，本地分支sf会自动将推送和抓取数据的位置定位到 origin/serverfix了。
+删除远程分支：git push [远程名]:[分支名]例git push origin:serverfix。
+
+分支衍合：把一个分支中的修改整合到另一个分支的办法有两种：merge 和 rebase；
+          最容易的整合分支的方法是 merge 命令，它会把两个分支最新的快照（C3 和 C4）以及二者最新的共同祖先（C2）进行三方合并，合并的结果是产生一个新的提交对象（C5）；
+          另外一个选择：把在 C3 里产生的变化补丁在C4的基础上重新打一遍。在Git里，这种操作叫做衍合（rebase）。有了 rebase 命令，就可以把在一个分支里提交的改变移到另一个分支里重放一遍。
+
+
+协议：
+     Git 使用的传输协议中最常见的可能就是 SSH 了。这是因为大多数环境已经支持通过 SSH 对服务器的访问 — 即便还没有，架设起来也很容易。SSH 也是唯一一个同时支持读写操作的网络协议。另外两个网络协议（HTTP 和 Git）通常都是只读的，所以虽然二者对大多数人都可用，但执行写操作时还是需要 SSH。SSH 同时也是一个验证授权的网络协议；而因为其普遍性，一般架设和使用都很容易。
+
+git clone git://git.kernel.org/pub/scm/git/git.git克隆git源码。
+git add . 跟踪项目文件夹中的所有文件和文件夹；git add 文件夹名（不需后缀）跟踪单个文件夹（如git add git截图）。
+
+
+使用 git reflog 来查看引用日志：一份记录最近几个月你的 HEAD 和分支引用的日志。
+
+当新建一个本地库，若不新建远程库，而是直接关联到一个已经存在的库，则要执行git push --force origin master (但这样会覆盖掉远程库以前的提交，以前的提交都看不到了，并且之前的那个本地库不能提交了，只能在之前的那个本地库再执行一次)
