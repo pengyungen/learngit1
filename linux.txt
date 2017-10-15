@@ -1,4 +1,10 @@
+Windows cmd:  systeminfo查看电脑配置信息；ipconfig(/all)查看ip信息
+命令提示符打开酷狗("E:\an zhuang\酷狗\KGMusic\KuGou.exe"): 1、 e：或E:进入盘符E；2、cd进入目录下文件：cd\an zhuang\酷狗\KGMusic；3、打开软件：KuGou或KuGou.exe。4、cd ..切换到上一层目录
+命令提示符进入文件夹直接用cd kugou,不需\。
+
+
 Linux： 查看软件安装路径  whereis mysql ；which mysql 查询文件的运行文件所在地址
+        查看已安装的软件版本  例python -v 或者 python --version
 
 编写hello word程序：
 vi hello.c  新建一个文件；进入vi的一般模式：可删除复制粘贴，但不能编辑；  在一般模式中输入：或/或？可以将光标移到最下面(这是命令行模式)；    在一般模式中按下i进入编辑模式；按esc退出编辑模式回到一般模式；
@@ -69,3 +75,13 @@ zip命令：压缩：zip FileName.zip DirName；解压：unzip FileName.zip
 删除文件夹/目录rm -rf 目录名字、 rm(remove)文件、  创建目录：mkdir、  创建文件 touch  
 
 运行可执行文件(软件)：cd 目录(进入程序目录)，然后 ./程序名称(文件名)。
+
+
+
+创建目录：mkdir；创建文件：touch；ls /etc查看此目录下文件；~ 表示root目录(echo ~ 会显示/root)
+使用 cat 命令查看 .bash_history 文件内容:cat ~/.bash_history(.表示当前目录)
+
+过滤, 管道与重定向：
+1、过滤出 /etc/passwd 文件中包含 root 的记录：grep 'root' /etc/passwd；
+2、管道：管道的作用是将上一个命令的输出作为下一个命令的输入,像 pipe 一样将各个命令串联起来执行, 管道的操作符是|，将 cat 和 grep 两个命令用管道组合：cat /etc/passwd | grep 'root'；
+3、重定向：使用 > 或 < 将命令的输出重定向到一个文件中，echo 'Hello World' > ~/test.txt；
