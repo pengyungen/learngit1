@@ -21,7 +21,7 @@ kill 命令用于终止进程kill -9 [PID],-9表示强迫进程立即停止,PID表进程编号
 
 5个基于Linux命令行的文件下载和网站浏览工具：
 
-rTorrent； Wget：能通过HTTP，HTTPS和FTP下载文件,# wget http://www.linuxsense.org/xxxx/xxx.tar.gz
+rTorrent； Wget：能通过HTTP，HTTPS和FTP下载文件,# wget http://www.linuxsense.org/xxxx/xxx.tar.gz(文件都有下载地址的)
 
 cURL：在多种协议上传输数据的命令行工具，支持FTP, HTTP, FTPS等协议的客户端应用，支持代理下载，暂停下载、恢复下载
 
@@ -50,7 +50,7 @@ sfotware-1.2.3-1.i386.rpm：i386，适用于Intel 80x86平台。
 通常，用tar打包的，都是源程序；而用rpm、dpkg打包的则是可执行程序。自己编译源程序更具灵活性，但容易遇到各种问题。
 
 1、安装使用tar打包的应用软件：
-    若是gz格式的压缩，则执行：tar –xvzf 软件包名，一步完成解压与解包工作。 执行“./configure”命令为编译做好准备； 执行“make”命令进行软件编译； 执行“make install”完成安装； 执行“make clean”删除安装时产生的临时文件。
+    若是gz格式的压缩，则执行：tar –xvzf 软件包名，一步完成解压与解包工作。 执行“./configure”命令为编译做好准备； 执行“make”命令进行软件编译； 执行“make install”完成安装； 执行“make clean”删除安装时产生的临时文件。(参考http://www.cnblogs.com/sunyoung/p/6184005.html)
 
 2、rpm打包的应用软件：rpm –ivh 软件包名。卸载：rpm –e 软件名(是软件名，而不是软件包名)
 3、使用deb打包的应用程序：安装dpkg –i deb软件包名；卸载dpkg –e 软件名。
